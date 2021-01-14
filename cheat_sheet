@@ -2,7 +2,7 @@ Cheat Sheet - dev
 
 ### FLASK
 
-export FLASK_APP=<flask_app.py> # in our case flask_be_template
+export FLASK_APP=<flask_app.py> # in our case wld
 export FLASK_ENV=development # to switch on debug mode
 
 flask run # to run your app
@@ -19,14 +19,14 @@ exit --> to deactivate the virtual environment
 
 ### docker
 sudo docker build -t vm_docker_flask .
-sudo docker run -d --name flask_be_template --network="host" -e APP_ENV=<ENV> -v <path-to-project>:/app --add-host jaeger:172.17.0.1 <image_name>
+sudo docker run -d --name wld --network="host" -e APP_ENV=<ENV> -v <path-to-project>:/app --add-host jaeger:172.17.0.1 <image_name>
 sudo docker stop <container_name>
 sudo docker start <container_name>
 sudo docker restart <container_name>
 
 
 ### waitress --> application server
-waitress-serve --call flask_be_template:create_app
+waitress-serve --call wld:create_app
 
 
 ### Unit tests
@@ -38,5 +38,5 @@ APP_ENV controls the environment configuration
 (DevConfig, TestConfig, ProductionConfig)
 
 # To launch waitress with a specific environment
-$ APP_ENV=<ENV> waitress-serve --call flask_be_template:create_app
+$ APP_ENV=<ENV> waitress-serve --call wld:create_app
 # where <ENV>=[Dev, Test, Production] 

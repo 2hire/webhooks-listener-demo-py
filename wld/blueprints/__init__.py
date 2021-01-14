@@ -5,4 +5,4 @@ from flask import (
 )
 
 ### EXAMPLE ###
-examples_bp = Blueprint('examples', __name__, url_prefix=current_app.config['API_PREFIX'])
+webhook_bp = Blueprint('webhook', __name__, url_prefix=current_app.config['API_PREFIX'])

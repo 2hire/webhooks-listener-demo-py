@@ -1,8 +1,8 @@
 from marshmallow import fields, post_load, validates_schema, ValidationError
 
-from flask_be_template.schema.base_schema import BaseSchema
+from wld.schema.base_schema import BaseSchema
 
-from flask_be_template.bom.examples.examples_bom import ExamplesBom
+from wld.bom.examples.examples_bom import ExamplesBom
 
 class ExamplesRequestSchema(BaseSchema):
 

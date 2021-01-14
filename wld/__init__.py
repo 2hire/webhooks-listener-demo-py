@@ -8,7 +8,7 @@ from flask import Flask, Blueprint, url_for, jsonify, g, session
 from flask_restful import Api, Resource, abort
 from flask_cors import CORS
 from flask_opentracing import FlaskTracing
-from flask_be_template.lib.exceptions import APIException
+from wld.lib.exceptions import APIException
 
 logging.basicConfig(level=int(os.environ.get("LOG_LEVEL", logging.INFO)),
                    format='[%(asctime)s]: {} %(levelname)s %(message)s'.format(os.getpid()),
@@ -64,10 +64,10 @@ def create_app():
 
         app.register_blueprint(api_bp, url_prefix=app.config['API_PREFIX'])
 
-        from flask_be_template.blueprints import examples_bp
-        from flask_be_template.blueprints.routes import initialize_routes
+        from wld.blueprints import webhook_bp
+        from wld.blueprints.routes import initialize_routes
         initialize_routes(api)
 
-        app.register_blueprint(examples_bp, url_prefix=app.config['API_PREFIX'])
+        app.register_blueprint(webhook_bp, url_prefix=app.config['API_PREFIX'])
 
     return app

@@ -3,12 +3,12 @@ from marshmallow import ValidationError
 from flask import make_response, request
 from flask_restful import Resource
 
-from flask_be_template.lib.exceptions import InvalidUsageException, TechnicalException
+from wld.lib.exceptions import InvalidUsageException, TechnicalException
 
-from flask_be_template.schema.requests.examples.examples_request_schema import ExamplesRequestSchema
+from wld.schema.requests.examples.examples_request_schema import ExamplesRequestSchema
 
 
-class ExamplesResource(Resource):
+class WebhookResource(Resource):
 
     def get(self):
 

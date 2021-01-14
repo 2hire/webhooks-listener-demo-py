@@ -17,4 +17,4 @@ RUN pip install --upgrade pip && \
 
 EXPOSE 8080
 
-CMD waitress-serve --call flask_be_template:create_app
+CMD waitress-serve --call wld:create_app

@@ -1,6 +1,6 @@
 class BaseConfig():
 
-   API_PREFIX = '/api/prefix' # we can even handle different versions here
+   API_PREFIX = '/api/wld' # we can even handle different versions here
    
    TESTING = False
    DEBUG = False
@@ -8,7 +8,7 @@ class BaseConfig():
 class DevConfig(BaseConfig):
 
    ENV = 'development'
-   SERVICE_NAME = 'flask-be-template-dev'
+   SERVICE_NAME = 'wld-dev'
    
    SECRET_KEY = 'dev'
    
@@ -20,7 +20,7 @@ class DevConfig(BaseConfig):
 class TestConfig(BaseConfig):
 
    ENV = 'development'
-   SERVICE_NAME = 'flask-be-template-test'
+   SERVICE_NAME = 'wld-test'
    
    TESTING = True
    DEBUG = True
@@ -29,4 +29,4 @@ class TestConfig(BaseConfig):
 class ProductionConfig(BaseConfig):
 
    ENV = 'production'
-   SERVICE_NAME = 'flask-be-template'
+   SERVICE_NAME = 'wld'

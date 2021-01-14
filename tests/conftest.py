@@ -1,11 +1,11 @@
 import pytest
 
-import flask_be_template
+import wld
 
 @pytest.fixture(scope='module')
 def app():
 
-    app = flask_be_template.create_app()
+    app = wld.create_app()
     return app
 
 
