@@ -1,0 +1,25 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+coverage = "*"
+pylint = "*"
+
+[packages]
+flask = "==1.1.1"
+waitress = "*"
+flask-restful = "*"
+marshmallow = "*"
+flask-opentracing = "*"
+jaeger-client = "*"
+flask-pymongo = "*"
+pymongo = {extras = ["srv"],version = "*"}
+pymysql = "*"
+python-dateutil = "*"
+flask-cors = "*"
+
+[requires]
+python_version = "3.6.9"
