@@ -7,7 +7,6 @@ import traceback
 from flask import Flask, Blueprint, url_for, jsonify, g, session
 from flask_restful import Api, Resource, abort
 from flask_cors import CORS
-from flask_opentracing import FlaskTracing
 from wld.lib.exceptions import APIException
 
 logging.basicConfig(level=int(os.environ.get("LOG_LEVEL", logging.INFO)),
