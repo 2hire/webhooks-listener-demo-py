@@ -1,3 +1,5 @@
+import os 
+
 class BaseConfig():
 
    API_PREFIX = '/api/wld' # we can even handle different versions here
@@ -5,6 +7,8 @@ class BaseConfig():
    TESTING = False
    DEBUG = False
    
+   SECRET = os.environ.get('SECRET', "thisIsARandomString")
+
 class DevConfig(BaseConfig):
 
    ENV = 'development'
