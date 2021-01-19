@@ -7,18 +7,18 @@ from wld.bom.webhook_bom import WebhookBom
 
 from flask import current_app
 
-TOPIC = ["online", "position", "distance_covered", "autonomy_percentage", "autonomy_meters"]
-TYPE = ["generic", "specific"]
+SIGNAL_TYPE = ["generic", "specific"]
+SIGNAL_NAME = ["online", "position", "distance_covered", "autonomy_percentage", "autonomy_meters"]
 
-def validates_topic(data):
-        topic = data.split(":")
+def validates_topic(_topic):
+        topic = _topic.split(":")
         if len(topic)!=4:
             return False
         if topic[0]!="vehicle":
             return False
-        if topic[2] not in TYPE:
+        if topic[2] not in SIGNAL_TYPE:
             return False
-        if topic[3] not in TOPIC:
+        if topic[3] not in SIGNAL_NAME:
             return False
 
 class WebhookSchema(BaseSchema):
@@ -30,13 +30,19 @@ class WebhookSchema(BaseSchema):
 
     @post_load
     def make_webhook_bom(self, data, **kwargs):
+        topic = data.get("topic").split(":")
+        data.update({
+            "uuid": topic[1],
+            "type": topic[2],
+            "name": topic[3]
+        })
         return self._model(**data)
 
 class GetWebhookSchema(BaseSchema):
 
     mode = fields.Str(required=True, data_key="hub.mode", validate=lambda check: check=="subscribe")
-    topic = fields.Str(required=True, data_key="hub.topic", validate=validate.OneOf(TOPIC))
-    challenge = fields.Str(required=True, data_key="hub.challenge", validate=lambda check: check==current_app.config["SECRET"])
+    topic = fields.Str(required=True, data_key="hub.topic", validate=validate.OneOf(SIGNAL_NAME))
+    challenge = fields.Str(required=True, data_key="hub.challenge")
 
     @post_load
     def get_challenge(self, data, **kwargs):

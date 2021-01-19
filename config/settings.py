@@ -7,7 +7,7 @@ class BaseConfig():
    TESTING = False
    DEBUG = False
    
-   SECRET = os.environ.get('SECRET', "thisIsARandomString")
+   SECRET = os.environ.get('SECRET', "A secret of your choice")
 
 class DevConfig(BaseConfig):
 
