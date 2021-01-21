@@ -3,8 +3,10 @@ from wld import logger
 
 class WebhookBom:
 
-    def __init__(self, topic=None, payload=None, uuid=None, type=None, name=None):
+    def __init__(self, mode=None, challenge=None, topic=None, payload=None, uuid=None, type=None, name=None):
 
+        self._mode = mode
+        self._challenge = challenge
         self._topic = topic
         self._payload = payload
         self._uuid = uuid
@@ -30,6 +32,22 @@ class WebhookBom:
         elif self._name == "online":
             logger.info("VALUE:         {}".format(self._payload.data.online))
         logger.info(" ")    
+
+    @property
+    def mode(self) -> str:
+        return self._mode
+
+    @mode.setter
+    def mode(self, mode: str):
+        self._mode = mode
+
+    @property
+    def challenge(self) -> str: 
+        return self._challenge
+
+    @challenge.setter
+    def challenge(self, challenge: str):
+        self._challenge = challenge
 
     @property
     def topic(self) -> str: 

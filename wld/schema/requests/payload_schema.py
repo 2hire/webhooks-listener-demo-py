@@ -11,6 +11,7 @@ class PayloadSchema(BaseSchema):
     
     data = fields.Nested(DataSchema, required=True)
     timestamp = fields.Int()
+    delivery_timestamp = fields.Int(data_key="deliveryTimestamp")
 
     @post_load
     def make_payload_bom(self, data, **kwargs):

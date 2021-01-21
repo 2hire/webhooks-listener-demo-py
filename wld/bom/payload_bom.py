@@ -3,10 +3,11 @@ from wld.bom.data_bom import DataBom
 
 class PayloadBom:
 
-    def __init__(self, data=None, timestamp = None):
+    def __init__(self, data=None, timestamp = None, delivery_timestamp=None):
 
         self._data = data
         self._timestamp = timestamp
+        self._delivery_timestamp = delivery_timestamp
 
     @property
     def data(self) -> DataBom:
@@ -23,4 +24,12 @@ class PayloadBom:
     @timestamp.setter
     def timestamp(self, timestamp: int):
         self._timestamp = timestamp
+
+    @property
+    def delivery_timestamp(self) -> int:
+        return self._delivery_timestamp
+
+    @delivery_timestamp.setter
+    def delivery_timestamp(self, delivery_timestamp: int):
+        self._delivery_timestamp = delivery_timestamp
 

@@ -21,12 +21,10 @@ def validates_topic(_topic):
         if topic[3] not in SIGNAL_NAME:
             return False
 
-class WebhookSchema(BaseSchema):
+
+class BaseWebhookSchema(BaseSchema):
 
     _model = WebhookBom
-    
-    topic = fields.Str(required=True, validate=validates_topic)
-    payload = fields.Nested(PayloadSchema, required=True)
 
     @post_load
     def make_webhook_bom(self, data, **kwargs):
@@ -38,12 +36,15 @@ class WebhookSchema(BaseSchema):
         })
         return self._model(**data)
 
-class GetWebhookSchema(BaseSchema):
+class GetWebhookSchema(BaseWebhookSchema):
 
     mode = fields.Str(required=True, data_key="hub.mode", validate=lambda check: check=="subscribe")
-    topic = fields.Str(required=True, data_key="hub.topic", validate=validate.OneOf(SIGNAL_NAME))
+    topic = fields.Str(required=True, data_key="hub.topic", validate=validates_topic)
     challenge = fields.Str(required=True, data_key="hub.challenge")
 
-    @post_load
-    def get_challenge(self, data, **kwargs):
-        return data.get("challenge")
+
+class PostWebhookSchema(BaseWebhookSchema):
+    
+    topic = fields.Str(required=True, validate=validates_topic)
+    payload = fields.Nested(PayloadSchema, required=True)
+
