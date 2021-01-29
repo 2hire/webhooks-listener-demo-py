@@ -3,12 +3,12 @@ from marshmallow import fields, post_load, validates_schema, ValidationError, va
 from wld.schema.base_schema import BaseSchema
 from wld.schema.requests.payload_schema import PayloadSchema
 
-from wld.bom.webhook_bom import WebhookBom
+from wld.bom.listener_bom import ListenerBom
 
 from flask import current_app
 
-SIGNAL_TYPE = ["generic", "specific"]
-SIGNAL_NAME = ["online", "position", "distance_covered", "autonomy_percentage", "autonomy_meters"]
+SIGNAL_TYPE = ["generic"]
+SIGNAL_NAME = ["online", "position", "distance_covered", "autonomy_percentage", "autonomy_meters", "*"]
 
 def validates_topic(_topic):
         topic = _topic.split(":")
@@ -22,12 +22,12 @@ def validates_topic(_topic):
             return False
 
 
-class BaseWebhookSchema(BaseSchema):
+class BaseListenerSchema(BaseSchema):
 
-    _model = WebhookBom
+    _model = ListenerBom
 
     @post_load
-    def make_webhook_bom(self, data, **kwargs):
+    def make_listener_bom(self, data, **kwargs):
         topic = data.get("topic").split(":")
         data.update({
             "uuid": topic[1],
@@ -36,14 +36,14 @@ class BaseWebhookSchema(BaseSchema):
         })
         return self._model(**data)
 
-class GetWebhookSchema(BaseWebhookSchema):
+class GetListenerSchema(BaseListenerSchema):
 
     mode = fields.Str(required=True, data_key="hub.mode", validate=lambda check: check=="subscribe")
     topic = fields.Str(required=True, data_key="hub.topic", validate=validates_topic)
     challenge = fields.Str(required=True, data_key="hub.challenge")
 
 
-class PostWebhookSchema(BaseWebhookSchema):
+class PostListenerSchema(BaseListenerSchema):
     
     topic = fields.Str(required=True, validate=validates_topic)
     payload = fields.Nested(PayloadSchema, required=True)

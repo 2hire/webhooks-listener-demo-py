@@ -1,7 +1,6 @@
 from wld.bom.payload_bom import PayloadBom
-from wld import logger
 
-class WebhookBom:
+class ListenerBom:
 
     def __init__(self, mode=None, challenge=None, topic=None, payload=None, uuid=None, type=None, name=None):
 
@@ -13,26 +12,6 @@ class WebhookBom:
         self._type = type
         self._name = name
     
-    def print_info(self):
-
-        logger.info("VEHICLE:       {}".format(self._uuid))
-        logger.info("SIGNAL_TYPE:   {}".format(self._type))
-        logger.info("SIGNAL NAME:   {}".format(self._name))
-
-        if self._name == "position":
-            logger.info("VALUE: ")
-            logger.info("   Latitude:   {}°".format(self._payload.data.latitude))
-            logger.info("   Longitude:  {}°".format(self._payload.data.longitude))
-        elif self._name == "autonomy_percentage":
-            logger.info("VALUE:         {} %".format(self._payload.data.percentage))
-        elif self._name == "autonomy_meters":
-            logger.info("VALUE:         {} meters".format(self._payload.data.meters))
-        elif self._name == "distance_covered":
-            logger.info("VALUE:         {} meters".format(self._payload.data.meters))
-        elif self._name == "online":
-            logger.info("VALUE:         {}".format(self._payload.data.online))
-        logger.info(" ")    
-
     @property
     def mode(self) -> str:
         return self._mode

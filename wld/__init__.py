@@ -35,13 +35,6 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(config)
     CORS(app)
-
-    # a simple page that says hello
-    class Hello(Resource):
-        def get(self):
-            return {'Hello': 'World'}
-    
-    api.add_resource(Hello, '/hello')
     
     @app.errorhandler(Exception)
     def _handle_api_error(ex):
@@ -61,12 +54,12 @@ def create_app():
     # Let's attach it to app
     with app.app_context():
 
-        app.register_blueprint(api_bp, url_prefix=app.config['API_PREFIX'])
+        app.register_blueprint(api_bp)
 
-        from wld.blueprints import webhook_bp
+        from wld.blueprints import listener_bp
         from wld.blueprints.routes import initialize_routes
         initialize_routes(api)
 
-        app.register_blueprint(webhook_bp, url_prefix=app.config['API_PREFIX'])
+        app.register_blueprint(listener_bp)
 
     return app

@@ -1,8 +1,6 @@
 import os 
 
 class BaseConfig():
-
-   API_PREFIX = '/api/wld' # we can even handle different versions here
    
    TESTING = False
    DEBUG = False
